@@ -17,7 +17,7 @@ public class JavaInterviewQuestionsTester {
 	private static final String REVERSABLE_FILE_NAME = "org/gusdb/fgputil/test/reversableTextFile.txt";
 	private static final String REVERSED_FILE_NAME_CORRECT = "org/gusdb/fgputil/test/reversedTextFile.txt";
 	private static final String REVERSED_FILE_PATH = "/tmp/reversedTextFile.txt";
-	
+
 	@Test
 	public void testPalindromeIterative() {
 	    testPalindrome(new JavaInterviewQuestions()::isPalindromeIterativeSolution);
@@ -60,19 +60,19 @@ public class JavaInterviewQuestionsTester {
 		assertTrue(q.isNearPalindrome("abracadabra",3));
 		assertTrue(q.isNearPalindrome("abracadabra",20));
 	}
-	
+
 	@Test
 	public void testReverseFile() {
 		JavaInterviewQuestions q = new JavaInterviewQuestions();
 		try {
 			String inputFilePath = getResourceFilePath(REVERSABLE_FILE_NAME);
 			String verificationFilePath = getResourceFilePath(REVERSED_FILE_NAME_CORRECT);
-			
+
 			// easy way
 			q.reverseFile(inputFilePath, REVERSED_FILE_PATH);
 			assertFilesEqual(REVERSED_FILE_PATH, verificationFilePath);
 			new File(REVERSED_FILE_PATH).delete();
-			
+
 			// memory-safe way
 			q.reverseFileMemSafe(inputFilePath, REVERSED_FILE_PATH);
 			assertFilesEqual(REVERSED_FILE_PATH, verificationFilePath);
@@ -82,7 +82,7 @@ public class JavaInterviewQuestionsTester {
 			throw new RuntimeException("I/O Error", ioe);
 		}
 	}
-	
+
 	@Test
 	public void testUniqueChars() {
 		JavaInterviewQuestions q = new JavaInterviewQuestions();

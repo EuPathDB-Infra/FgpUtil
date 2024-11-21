@@ -2,7 +2,7 @@ package org.gusdb.fgputil.web.servlet;
 
 import java.util.Enumeration;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import org.gusdb.fgputil.collection.ReadOnlyHashMap;
 import org.gusdb.fgputil.collection.ReadOnlyMap;

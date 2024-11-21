@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 import org.gusdb.fgputil.IoUtil;
 import org.gusdb.fgputil.Tuples.TwoTuple;

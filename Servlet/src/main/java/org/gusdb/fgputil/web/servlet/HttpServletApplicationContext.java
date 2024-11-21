@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.gusdb.fgputil.Tuples.TwoTuple;
 import org.gusdb.fgputil.web.ApplicationContext;

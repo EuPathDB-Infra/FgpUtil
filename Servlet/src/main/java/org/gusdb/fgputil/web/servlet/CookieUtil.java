@@ -1,6 +1,6 @@
 package org.gusdb.fgputil.web.servlet;
 
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 
 import org.gusdb.fgputil.web.CookieBuilder;
 
