@@ -64,22 +64,36 @@ public class IoUtil {
   }
 
   /**
-   * Recursively removes the passed directory
+   * Recursively removes the passed directory, except for any paths provided as exclusions
    *
    * @param directory directory to remove
    * @throws IOException if unable to delete entire directory tree (deletion will stop after first error)
    */
-  public static void deleteDirectoryTree(Path directory) throws IOException {
+  public static void deleteDirectoryTree(Path directory, Path... exclusions) throws IOException {
     Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+
+      private boolean exclude(Path file) throws IOException {
+        for (Path path : exclusions) {
+          if (Files.isSameFile(path, file))
+            return true;
+        }
+        return false;
+      }
+
       @Override
       public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        Files.delete(file);
+        if (!exclude(file)) {
+          Files.delete(file);
+        }
         return FileVisitResult.CONTINUE;
       }
+
       @Override
       public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
         if (e == null) {
-          Files.delete(dir);
+          if (!exclude(dir)) {
+            Files.delete(dir);
+          }
           return FileVisitResult.CONTINUE;
         }
         else {
@@ -401,18 +415,23 @@ public class IoUtil {
    *
    * @param directory path to directory
    * @param useExisting if false and directory exists, an exception will be thrown
-   * @throws IOException if unable to create directory or apply permissions
+   * @return true if this method created the directory, false if useExisting is true and directory already existed
+   * @throws FileAlreadyExistsException if useExisting is false and directory already exists
+   * @throws IOException if unable to create directory
    */
-  public static void createOpenPermsDirectory(Path directory, boolean useExisting) throws IOException {
+  public static boolean createOpenPermsDirectory(Path directory, boolean useExisting) throws IOException {
+    boolean alreadyCreated = false;
     try {
       directory = Files.createDirectory(directory);
     }
     catch (FileAlreadyExistsException e) {
+      alreadyCreated = true;
       if (!useExisting) {
         throw e;
       }
     }
     openPosixPermissions(directory);
+    return !alreadyCreated;
   }
 
   /**
